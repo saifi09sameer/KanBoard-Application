@@ -1,0 +1,54 @@
+<body>
+  <div class="container">
+    <mat-card class="card" style="height: 400px; width: 400px;">
+      <h2 style="color: darkgoldenrod;"><strong>Login</strong></h2>
+      <form [formGroup]="loginForm" (ngSubmit)="loginEmployee()">
+        <mat-form-field appearance="outline" class="input-field">
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="employeeEmail" placeholder="Email" required>
+          
+          <mat-error *ngIf="loginForm.get('employeeEmail')?.errors?.['required'] && loginForm.get('employeeEmail')?.touched">
+            Email is required.
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('employeeEmail')?.errors?.['pattern'] && loginForm.get('employeeEmail')?.touched">
+            Please enter a valid email address (e.g., saifi09sameer@gmail.com).
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="input-field">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput [type]="hide ? 'password' : 'text'" type="password" formControlName="employeePassword" placeholder="Password" required>
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+
+          <!-- <input matInput type="password" formControlName="employeePassword" placeholder="Password" required> -->
+          
+          <mat-error *ngIf="loginForm.get('employeePassword')?.errors?.['required'] && loginForm.get('employeePassword')?.touched">
+            Password is required.
+          </mat-error>
+
+          <mat-error *ngIf="loginForm.get('employeePassword')?.errors?.['pattern'] && loginForm.get('employeePassword')?.touched">
+            Password should contain at least one uppercase letter and one of the following characters: @ or #.
+          </mat-error>
+        </mat-form-field>
+        
+        <button mat-raised-button color="primary" type="submit" class="btn">
+          <span class="btn-text">Login</span>
+        </button>
+        
+      </form>
+
+      <div class="actions">
+        <a id="forgotPassword" (click)="forGotPassword()">Forgot Password?</a>
+        <a routerLink="/register" id="signup" mat-button>Sign Up</a>
+      </div>
+    </mat-card>
+  </div>
+</body>
+
+
+
+

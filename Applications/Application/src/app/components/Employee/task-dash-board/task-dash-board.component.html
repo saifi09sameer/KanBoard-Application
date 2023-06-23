@@ -1,0 +1,671 @@
+<style>
+    .icon {
+        animation: up-down 1s ease-in-out infinite;
+    }
+
+    @keyframes up-down {
+        0% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-5px);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<!-- [matTooltipPositionAtOrigin]="enabled.value" -->
+<!-- <div class="example-button-row align-right">
+    <div class="col-md-5 text-left">
+        <h4>Project Name : <span style="color: rgb(190, 64, 64);">{{projectName}}</span></h4>
+    </div>
+    <div class="col-md-6 text-right">
+        <h4>Project ID : <span style="color: rgb(190, 64, 64);">{{projectID}}</span></h4>
+    </div>
+    <div class="example-button-container">
+        <button (click)="createTask()" class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Create Task">
+            <mat-icon><i class="fa fa-plus"></i></mat-icon>
+        </button>
+    </div>
+
+    <div class="example-button-container">
+        <button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="Deleted Tasks">
+            <mat-icon><i class="fa fa-trash"></i></mat-icon>
+        </button>
+    </div>
+
+
+</div> -->
+
+<div [style.background-color]="backgroundColor" class="task-dashboard">
+    <div class="sideButtons">
+        <button matTooltip="Create New Task" matTooltipClass="custom-tooltip" (click)="createTask()" mat-icon-button
+            color="primary" class="back-button">
+            <span class="material-symbols-outlined">
+                add_circle
+            </span>
+        </button>
+        <!-- (click)="viewProject()"  -->
+
+        <button matTooltip="View Project Details" matTooltipClass="custom-tooltip" (click)="viewProject()"
+            mat-icon-button color="primary" class="back-button">
+            <mat-icon>view_agenda</mat-icon>
+        </button>
+
+        <button matTooltip="Go Recycle Bin" matTooltipClass="custom-tooltip" (click)="navigateToWinDashboard()"
+            mat-icon-button color="primary" class="back-button">
+            <mat-icon>delete_sweep</mat-icon>
+        </button>
+
+        <button matTooltip="Take Screen Short" matTooltipClass="custom-tooltip" (click)="captureScreenshot()"
+            mat-icon-button color="primary" class="back-button">
+            <mat-icon>camera</mat-icon>
+
+        </button>
+
+        <button matTooltip="Change Background Color" matTooltipClass="custom-tooltip" mat-icon-button
+            (click)="changeBackgroundColor()">
+            <mat-icon>palette</mat-icon>
+        </button>
+
+
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div cdkDropListGroup>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="example-container">
+                                <h2 class="head-title">TO DO <span *ngIf="task.length > 0"> - {{task.length}}</span>
+                                </h2>
+                                <div cdkDropList [cdkDropListData]="task" class="example-list"
+                                    (cdkDropListDropped)="drop($event)">
+                                    <div class="example-box" *ngFor="let item of task; let i=index" cdkDrag>
+
+                                       
+                                        <mat-card [ngClass]="{'example-card-high': item.taskPriority === 'High', 'example-card-medium': item.taskPriority === 'Medium', 'example-card-low': item.taskPriority === 'Low'}" style="width: 345px; height: auto;" class="example-card">
+                                            <mat-card-header>
+                                                <mat-card-title class="task-name">{{ item.taskName | slice:0:15 }}</mat-card-title>
+                                                
+
+                                                
+
+
+                                                    <div class="employeeCharContainer">
+                                                        <div class="employee-cards">
+                                                          <ng-container *ngFor="let employee of item.assignTaskEmployees; let i = index">
+                                                            <div class="employee-card" *ngIf="i < 4">
+                                                              <div class="employee-circle" matTooltip="{{employee}}" matTooltipClass="custom-tooltip">
+                                                                <span class="employee-name">{{ employee.charAt(0).toUpperCase() }}</span>
+                                                              </div>
+                                                            </div>
+                                                          </ng-container>
+                                                        </div>
+                                                      </div>
+                                                      
+                                                  
+                                                  
+                                                
+
+                                            </mat-card-header>
+                                           
+                                            <mat-card-content
+                                                style="margin-top: 20px; display: flex; justify-content: space-between;">
+                                                <p>
+                                                    <mat-chip color="accent" matTooltip="{{item.taskCreatedDate}}" matTooltipClass="custom-tooltip">
+                                                        <span style="color: rgb(23, 153, 11);"><b>Task Created:-
+                                                                {{item.taskCreatedDate}}</b></span>
+                                                    </mat-chip>
+                                                    <mat-chip color="accent" style="margin-top: 10px;" matTooltip="{{item.taskEndDate}}" matTooltipClass="custom-tooltip">
+                                                        <span style="color: red;">Task End Date:-
+                                                            {{item.taskEndDate}}</span>
+                                                    </mat-chip>
+                                                </p>
+                                                <div class="icon-blink-container">
+                                                    
+                                                    <i class="fa fa-angle-double-down icon"></i>
+                                                    <div class="blink-animation">Hover me</div>
+                                                </div>
+                                               
+                                            </mat-card-content>
+                                
+
+                                            <div style="font-size: 16px;">
+                                                <div style="margin-left: 10px;">
+                                                  <i>
+                                                    <strong>
+                                                      <ng-container *ngIf="getDuration(item) > 6; else ifDuration4to6">
+                                                        <span style="color: green;">{{ getDuration(item) }} days left...</span>
+                                                      </ng-container>
+                                                      <ng-template #ifDuration4to6>
+                                                        <ng-container *ngIf="getDuration(item) >= 4 && getDuration(item) <= 6;">
+                                                          <span style="color: yellow;">{{ getDuration(item) }} days left...</span>
+                                                        </ng-container>
+                                                      </ng-template>
+                                                    </strong>
+                                                  </i>
+                                                </div>
+                                              
+                                                <div *ngIf="getDuration(item) >= 0 && getDuration(item) <= 3" class="blink-animation" style="margin-left: 10px;">
+                                                  <i>
+                                                    <strong>
+                                                      <span style="color: red;">{{ getDuration(item) }} days left...</span>
+                                                    </strong>
+                                                  </i>
+                                                </div>
+                                              </div>
+                                              
+                                              
+                                              
+                                              
+                                            <mat-card-footer class="card-footer">
+                                                <mat-card-actions class="myAlignment">
+                                                    <mat-chip-listbox aria-label="Dog selection">
+                                                        <ng-container *ngIf="item.taskPriority === 'High'">
+                                                            <mat-chip matTooltip="High Priority"
+                                                                matTooltipClass="custom-tooltip" color="accent">
+                                                                <div>
+                                                                    <i class="fa fa-flag-o"
+                                                                        style="font-size:18px;color:red">
+                                                                    </i>
+                                                                </div>
+                                                            </mat-chip>
+                                                            
+                                                          
+                                                        </ng-container>
+                                                        <ng-container *ngIf="item.taskPriority === 'Medium'">
+                                                            <mat-chip color="accent">
+                                                                <div matTooltip="Medium Priority"
+                                                                    matTooltipClass="custom-tooltip">
+                                                                    <i class="fa fa-flag-o"
+                                                                        style="font-size:18px;color:rgb(214, 216, 52)"></i>
+                                                                </div>
+                                                            </mat-chip>
+                                                           
+                                                        </ng-container>
+                                                        <ng-container *ngIf="item.taskPriority === 'Low'">
+                                                            <mat-chip color="accent">
+                                                                <div matTooltip="Low Priority"
+                                                                    matTooltipClass="custom-tooltip">
+                                                                    <i class="fa fa-flag-o"
+                                                                        style="font-size:18px;color:rgb(54, 40, 211)">
+                                                                    </i>
+                                                                </div>
+                                                            </mat-chip>
+                                                            
+                                                        </ng-container>
+                                                    </mat-chip-listbox>
+
+                                                    <button matTooltip="View Task" matTooltipClass="custom-tooltip"
+                                                        mat-button (click)="viewTask(item)"><i
+                                                            class="fa fa-eye"></i></button>
+
+                                                    <button matTooltip="Assign Task" matTooltipClass="custom-tooltip"
+                                                        *ngIf="item.taskCreatedBY==loginEmployee" mat-button
+                                                        (click)="AssignTask(item.taskID)"><i class="fa fa-tasks"
+                                                            aria-hidden="true"></i></button>
+
+                                                    <button matTooltip="Delete Task" matTooltipClass="custom-tooltip"
+                                                        *ngIf="item.taskCreatedBY==loginEmployee" mat-button
+                                                        (click)="deleteByTaskId(item.taskID)"> <i class="fa fa-trash"
+                                                            aria-hidden="true"></i> </button>
+
+                                                </mat-card-actions>
+                                            </mat-card-footer>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <!-- inprogress -->
+                            <div class="example-container">
+                                <h2 class="head-title">InProgress <span *ngIf="inprogress.length>0"> -
+                                        {{inprogress.length}}</span></h2>
+                                <div cdkDropList [cdkDropListData]="inprogress" class="example-list"
+                                    (cdkDropListDropped)="drop($event)">
+                                    <div class="example-box" *ngFor="let item of inprogress; let i = index" cdkDrag>
+                                        <!-- {{item.description}}
+                                        <button mat-icon-button color="warn"
+                                            (click)="deleteInProgressTask(i)"><mat-icon>delete</mat-icon></button> -->
+
+
+                                        <mat-card  [ngClass]="{'example-card-high': item.taskPriority === 'High', 'example-card-medium': item.taskPriority === 'Medium', 'example-card-low': item.taskPriority === 'Low'}" style="width: 345px; height: auto;" class="example-card">
+                                            <mat-card-header>
+                                                <mat-card-title class="task-name">{{ item.taskName | slice:0:15 }}</mat-card-title>
+
+                                                    <div class="employeeCharContainer">
+                                                        <div class="employee-cards">
+                                                          <ng-container *ngFor="let employee of item.assignTaskEmployees; let i = index">
+                                                            <div class="employee-card" *ngIf="i < 4">
+                                                              <div class="employee-circle" matTooltip="{{employee}}" matTooltipClass="custom-tooltip">
+                                                                <span class="employee-name">{{ employee.charAt(0).toUpperCase() }}</span>
+                                                              </div>
+                                                            </div>
+                                                          </ng-container>
+                                                        </div>
+                                                      </div>
+
+                                                <div *ngIf="item.taskCreatedBY!=loginEmployee"
+                                                    class="assign-icon-container">
+                                                    <!-- Add your icon here -->
+                                                    <mat-icon matTooltip="Assigned"
+                                                        matTooltipClass="custom-tooltip">assignment_ind</mat-icon>
+                                                </div>
+
+                                            </mat-card-header>
+                                            <!-- <span *ngIf="item.taskCreatedBY!=loginEmployee"
+                                                style="color: rgb(40, 95, 150); margin-left: 35px;"><b>Assign By :
+                                                    {{item.taskCreatedBY}}</b>
+                                            </span> -->
+                                            <mat-card-content
+                                                style="margin-top: 20px; display: flex; justify-content: space-between;">
+                                                <p>
+                                                    <mat-chip color="accent" matTooltip="{{item.taskCreatedDate}}" matTooltipClass="custom-tooltip">
+                                                        <span style="color: rgb(23, 153, 11);"><b>Task Created:-
+                                                                {{item.taskCreatedDate}}</b></span>
+                                                    </mat-chip>
+                                                    <mat-chip color="accent" style="margin-top: 10px;" matTooltip="{{item.taskEndDate}}" matTooltipClass="custom-tooltip">
+                                                        <span style="color: red;">Task End Date:-
+                                                            {{item.taskEndDate}}</span>
+                                                    </mat-chip>
+                                                </p>
+                                                <div class="icon-blink-container">
+                                                    <i class="fa fa-angle-double-down icon"></i>
+                                                    <div class="blink-animation">Hover me</div>
+                                                </div>
+                                            </mat-card-content>
+                                            <!-- <div style="font-size: 12px; margin-left: 10px;"><div class="blink-animation"><i><strong>{{   getDuration(item)}} days left </strong></i> </div></div> -->
+
+                                            <div style="font-size: 16px;">
+                                                <div style="margin-left: 10px;">
+                                                  <i>
+                                                    <strong>
+                                                      <ng-container *ngIf="getDuration(item) > 6; else ifDuration4to6">
+                                                        <span style="color: green;">{{ getDuration(item) }} days left...</span>
+                                                      </ng-container>
+                                                      <ng-template #ifDuration4to6>
+                                                        <ng-container *ngIf="getDuration(item) >= 4 && getDuration(item) <= 6;">
+                                                          <span style="color: yellow;">{{ getDuration(item) }} days left...</span>
+                                                        </ng-container>
+                                                      </ng-template>
+                                                    </strong>
+                                                  </i>
+                                                </div>
+                                              
+                                                <div *ngIf="getDuration(item) >= 0 && getDuration(item) <= 3" class="blink-animation" style="margin-left: 10px;">
+                                                  <i>
+                                                    <strong>
+                                                      <span style="color: red;">{{ getDuration(item) }} days left...</span>
+                                                    </strong>
+                                                  </i>
+                                                </div>
+                                              </div>
+                                              
+                                              
+                                            <mat-card-footer class="card-footer">
+                                                <mat-card-actions class="myAlignment">
+                                                    <mat-chip-listbox aria-label="Dog selection">
+                                                        <ng-container *ngIf="item.taskPriority === 'High'">
+                                                            <mat-chip color="accent">
+                                                                <div matTooltip="High Priority"
+                                                                    matTooltipClass="custom-tooltip">
+                                                                    <i class="fa fa-flag-o"
+                                                                        style="font-size:18px;color:red">
+                                                                    </i>
+                                                                </div>
+                                                            </mat-chip>
+                                                            <!-- Add your high priority logic here -->
+                                                        </ng-container>
+                                                        <ng-container *ngIf="item.taskPriority === 'Medium'">
+                                                            <mat-chip color="accent">
+                                                                <div matTooltip="Medium Priority"
+                                                                    matTooltipClass="custom-tooltip">
+                                                                    <i class="fa fa-flag-o"
+                                                                        style="font-size:18px;color:rgb(214, 216, 52)"></i>
+                                                                </div>
+                                                            </mat-chip>
+                                                            <!-- Add your medium priority logic here -->
+                                                        </ng-container>
+                                                        <ng-container *ngIf="item.taskPriority === 'Low'">
+                                                            <mat-chip color="accent">
+                                                                <div matTooltip="Low Priority"
+                                                                    matTooltipClass="custom-tooltip">
+                                                                    <i class="fa fa-flag-o"
+                                                                        style="font-size:18px;color:rgb(54, 40, 211)">
+                                                                    </i>
+                                                                </div>
+                                                            </mat-chip>
+                                                            <!-- Add your low priority logic here -->
+                                                        </ng-container>
+                                                    </mat-chip-listbox>
+
+                                                    <button matTooltip="View Task" matTooltipClass="custom-tooltip"
+                                                        mat-button (click)="viewTask(item)"><i
+                                                            class="fa fa-eye"></i></button>
+
+                                                    <button matTooltip="Assign Task" matTooltipClass="custom-tooltip"
+                                                        *ngIf="item.taskCreatedBY==loginEmployee" mat-button
+                                                        (click)="AssignTask(item.taskID)"><i class="fa fa-tasks"
+                                                            aria-hidden="true"></i></button>
+
+                                                    <button matTooltip="Delete Task" matTooltipClass="custom-tooltip"
+                                                        *ngIf="item.taskCreatedBY==loginEmployee" mat-button
+                                                        (click)="deleteByTaskId(item.taskID)"> <i class="fa fa-trash"
+                                                            aria-hidden="true"></i> </button>
+
+                                                </mat-card-actions>
+                                            </mat-card-footer>
+                                        </mat-card>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <!-- Review -->
+                            <div class="example-container">
+                                <h2 class="head-title">Review <span *ngIf="review.length>0"> - {{review.length}}</span>
+                                </h2>
+                                <div cdkDropList [cdkDropListData]="review" class="example-list"
+                                    (cdkDropListDropped)="drop($event)">
+                                    <div class="example-box" *ngFor="let item of review; let i = index;" cdkDrag>
+                                        <!-- {{item.description}} -->
+                                        <div class="box">
+                                            <!-- <button mat-icon-button color="warn"
+                                                (click)="deleteDoneTask(i)"><mat-icon>delete</mat-icon></button>
+                                            <button mat-icon-button
+                                                color="primary"><mat-icon>check_circle</mat-icon></button> -->
+
+
+                                            <mat-card [ngClass]="{'example-card-high': item.taskPriority === 'High', 'example-card-medium': item.taskPriority === 'Medium', 'example-card-low': item.taskPriority === 'Low'}" style="width: 330px; height: auto;" class="example-card">
+                                                <mat-card-header>
+                                                    <mat-card-title class="task-name">{{ item.taskName | slice:0:15 }}</mat-card-title>
+
+                                                        <div class="employeeCharContainer">
+                                                            <div class="employee-cards">
+                                                              <ng-container *ngFor="let employee of item.assignTaskEmployees; let i = index">
+                                                                <div class="employee-card" *ngIf="i < 4">
+                                                                  <div class="employee-circle" matTooltip="{{employee}}" matTooltipClass="custom-tooltip">
+                                                                    <span class="employee-name">{{ employee.charAt(0).toUpperCase() }}</span>
+                                                                  </div>
+                                                                </div>
+                                                              </ng-container>
+                                                            </div>
+                                                          </div>
+
+                                                    <div *ngIf="item.taskCreatedBY!=loginEmployee"
+                                                        class="assign-icon-container">
+                                                        <!-- Add your icon here -->
+                                                        <mat-icon matTooltip="Assigned"
+                                                            matTooltipClass="custom-tooltip">assignment_ind</mat-icon>
+                                                    </div>
+
+                                                </mat-card-header>
+                                                <!-- <span *ngIf="item.taskCreatedBY!=loginEmployee"
+                                                    style="color: rgb(40, 95, 150); margin-left: 35px;"><b>Assign By :
+                                                        {{item.taskCreatedBY}}</b>
+                                                </span> -->
+                                                <mat-card-content
+                                                    style="margin-top: 20px; display: flex; justify-content: space-between;">
+                                                    <p>
+                                                        <mat-chip color="accent" matTooltip="{{item.taskCreatedDate}}" matTooltipClass="custom-tooltip">
+                                                            <span style="color: rgb(23, 153, 11);"><b>Task Created:-
+                                                                    {{item.taskCreatedDate}}</b></span>
+                                                        </mat-chip>
+                                                        <mat-chip color="accent" style="margin-top: 10px;" matTooltip="{{item.taskEndDate}}" matTooltipClass="custom-tooltip">
+                                                            <span style="color: red;">Task End Date:-
+                                                                {{item.taskEndDate}}</span>
+                                                        </mat-chip>
+                                                    </p>
+                                                    <div class="icon-blink-container">
+                                                        <i class="fa fa-angle-double-down icon"></i>
+                                                        <div class="blink-animation">Hover me</div>
+                                                    </div>
+                                                </mat-card-content>
+                                                
+                                                <div style="font-size: 16px;">
+                                                    <div style="margin-left: 10px;">
+                                                      <i>
+                                                        <strong>
+                                                          <ng-container *ngIf="getDuration(item) > 6; else ifDuration4to6">
+                                                            <span style="color: green;">{{ getDuration(item) }} days left...</span>
+                                                          </ng-container>
+                                                          <ng-template #ifDuration4to6>
+                                                            <ng-container *ngIf="getDuration(item) >= 4 && getDuration(item) <= 6;">
+                                                              <span style="color: yellow;">{{ getDuration(item) }} days left...</span>
+                                                            </ng-container>
+                                                          </ng-template>
+                                                        </strong>
+                                                      </i>
+                                                    </div>
+                                                  
+                                                    <div *ngIf="getDuration(item) >= 0 && getDuration(item) <= 3" class="blink-animation" style="margin-left: 10px;">
+                                                      <i>
+                                                        <strong>
+                                                          <span style="color: red;">{{ getDuration(item) }} days left...</span>
+                                                        </strong>
+                                                      </i>
+                                                    </div>
+                                                  </div>
+                                                  
+                                                  
+                                                <mat-card-footer class="card-footer">
+                                                    <mat-card-actions class="myAlignment">
+                                                        <mat-chip-listbox aria-label="Dog selection">
+                                                            <ng-container *ngIf="item.taskPriority === 'High'">
+                                                                <mat-chip color="accent">
+                                                                    <div matTooltip="High Priority"
+                                                                        matTooltipClass="custom-tooltip">
+                                                                        <i class="fa fa-flag-o"
+                                                                            style="font-size:18px;color:red">
+                                                                        </i>
+                                                                    </div>
+                                                                </mat-chip>
+                                                                <!-- Add your high priority logic here -->
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.taskPriority === 'Medium'">
+                                                                <mat-chip color="accent">
+                                                                    <div matTooltip="Medium Priority"
+                                                                        matTooltipClass="custom-tooltip">
+                                                                        <i class="fa fa-flag-o"
+                                                                            style="font-size:18px;color:rgb(214, 216, 52)"></i>
+                                                                    </div>
+                                                                </mat-chip>
+                                                                <!-- Add your medium priority logic here -->
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.taskPriority === 'Low'">
+                                                                <mat-chip color="accent">
+                                                                    <div matTooltip="Low Priority"
+                                                                        matTooltipClass="custom-tooltip">
+                                                                        <i class="fa fa-flag-o"
+                                                                            style="font-size:18px;color:rgb(54, 40, 211)">
+                                                                        </i>
+                                                                    </div>
+                                                                </mat-chip>
+                                                                <!-- Add your low priority logic here -->
+                                                            </ng-container>
+                                                        </mat-chip-listbox>
+
+                                                        <button matTooltip="View Task" matTooltipClass="custom-tooltip"
+                                                            mat-button (click)="viewTask(item)">
+                                                            <i class="fa fa-eye"></i></button>
+
+                                                        <button matTooltip="Assign Task"
+                                                            matTooltipClass="custom-tooltip"
+                                                            *ngIf="item.taskCreatedBY==loginEmployee" mat-button
+                                                            (click)="AssignTask(item.taskID)"><i class="fa fa-tasks"
+                                                                aria-hidden="true"></i></button>
+
+                                                        <button matTooltip="Delete Task"
+                                                            matTooltipClass="custom-tooltip"
+                                                            *ngIf="item.taskCreatedBY==loginEmployee" mat-button
+                                                            (click)="deleteByTaskId(item.taskID)"> <i
+                                                                class="fa fa-trash" aria-hidden="true"></i> </button>
+
+                                                    </mat-card-actions>
+                                                </mat-card-footer>
+                                            </mat-card>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <!-- done -->
+                            <div class="example-container">
+                                <h2 class="head-title">Completed <span *ngIf="done.length>0"> - {{done.length}}</span>
+                                </h2>
+                                <div cdkDropList [cdkDropListData]="done" class="example-list"
+                                    (cdkDropListDropped)="drop($event)">
+                                    <div class="example-box" *ngFor="let item of done; let i = index;" cdkDrag>
+
+                                        <div class="box">
+                                            <mat-card [ngClass]="{'example-card-high': item.taskPriority === 'High', 'example-card-medium': item.taskPriority === 'Medium', 'example-card-low': item.taskPriority === 'Low'}" style="width: 330px; height: auto;" class="example-card">
+                                                <mat-card-header>
+                                                    <mat-card-title class="task-name">{{ item.taskName | slice:0:15 }}</mat-card-title>
+
+                                                        <div class="employeeCharContainer">
+                                                            <div class="employee-cards">
+                                                              <ng-container *ngFor="let employee of item.assignTaskEmployees; let i = index">
+                                                                <div class="employee-card" *ngIf="i < 4">
+                                                                  <div class="employee-circle" matTooltip="{{employee}}" matTooltipClass="custom-tooltip">
+                                                                    <span class="employee-name">{{ employee.charAt(0).toUpperCase() }}</span>
+                                                                  </div>
+                                                                </div>
+                                                              </ng-container>
+                                                            </div>
+                                                          </div>
+
+                                                    <div *ngIf="item.taskCreatedBY!=loginEmployee"
+                                                        class="assign-icon-container">
+                                                        <!-- Add your icon here -->
+                                                        <mat-icon matTooltip="Assigned"
+                                                            matTooltipClass="custom-tooltip">assignment_ind</mat-icon>
+                                                    </div>
+
+                                                </mat-card-header>
+                                                <!-- <span *ngIf="item.taskCreatedBY!=loginEmployee"
+                                                    style="color: rgb(40, 95, 150); margin-left: 35px;"><b>Assign By :
+                                                        {{item.taskCreatedBY}}</b>
+                                                </span> -->
+                                                <mat-card-content
+                                                    style="margin-top: 20px; display: flex; justify-content: space-between;">
+                                                    <p>
+                                                        <mat-chip color="accent" matTooltip="{{item.taskCreatedDate}}" matTooltipClass="custom-tooltip">
+                                                            <span style="color: rgb(23, 153, 11);"><b>Task Created:-
+                                                                    {{item.taskCreatedDate}}</b></span>
+                                                        </mat-chip>
+                                                        <mat-chip color="accent" style="margin-top: 10px;" matTooltip="{{item.taskEndDate}}" matTooltipClass="custom-tooltip">
+                                                            <span style="color: red;">Task End Date:-
+                                                                {{item.taskEndDate}}</span>
+                                                        </mat-chip>
+                                                    </p>
+                                                    <div class="icon-blink-container">
+                                                        <i class="fa fa-angle-double-down icon"></i>
+                                                        <div class="blink-animation">Hover me</div>
+                                                    </div>
+                                                </mat-card-content>
+                                                
+
+                                                <div style="font-size: 16px;">
+                                                    <div style="margin-left: 10px;">
+                                                      <i>
+                                                        <strong>
+                                                          <ng-container *ngIf="getDuration(item) > 6; else ifDuration4to6">
+                                                            <span style="color: green;">{{ getDuration(item) }} days left...</span>
+                                                          </ng-container>
+                                                          <ng-template #ifDuration4to6>
+                                                            <ng-container *ngIf="getDuration(item) >= 4 && getDuration(item) <= 6;">
+                                                              <span style="color: yellow;">{{ getDuration(item) }} days left...</span>
+                                                            </ng-container>
+                                                          </ng-template>
+                                                        </strong>
+                                                      </i>
+                                                    </div>
+                                                  
+                                                    <div *ngIf="getDuration(item) >= 0 && getDuration(item) <= 3" class="blink-animation" style="margin-left: 10px;">
+                                                      <i>
+                                                        <strong>
+                                                          <span style="color: red;">{{ getDuration(item) }} days left...</span>
+                                                        </strong>
+                                                      </i>
+                                                    </div>
+                                                  </div>
+                                                  
+                                                  
+                                                <mat-card-footer class="card-footer">
+                                                    <mat-card-actions class="myAlignment">
+                                                        <mat-chip-listbox aria-label="Dog selection">
+                                                            <ng-container *ngIf="item.taskPriority === 'High'">
+                                                                <mat-chip color="accent">
+                                                                    <div matTooltip="High Priority"
+                                                                        matTooltipClass="custom-tooltip">
+                                                                        <i class="fa fa-flag-o"
+                                                                            style="font-size:18px;color:red">
+                                                                        </i>
+                                                                    </div>
+                                                                </mat-chip>
+                                                                <!-- Add your high priority logic here -->
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.taskPriority === 'Medium'">
+                                                                <mat-chip color="accent">
+                                                                    <div matTooltip="Medium Priority"
+                                                                        matTooltipClass="custom-tooltip">
+                                                                        <i class="fa fa-flag-o"
+                                                                            style="font-size:18px;color:rgb(214, 216, 52)"></i>
+                                                                    </div>
+                                                                </mat-chip>
+                                                                <!-- Add your medium priority logic here -->
+                                                            </ng-container>
+                                                            <ng-container *ngIf="item.taskPriority === 'Low'">
+                                                                <mat-chip color="accent">
+                                                                    <div matTooltip="Low Priority"
+                                                                        matTooltipClass="custom-tooltip">
+                                                                        <i class="fa fa-flag-o"
+                                                                            style="font-size:18px;color:rgb(54, 40, 211)">
+                                                                        </i>
+                                                                    </div>
+                                                                </mat-chip>
+                                                                <!-- Add your low priority logic here -->
+                                                            </ng-container>
+                                                        </mat-chip-listbox>
+
+                                                        <button matTooltip="View Task" matTooltipClass="custom-tooltip"
+                                                            mat-button (click)="viewTask(item)"><i
+                                                                class="fa fa-eye"></i></button>
+
+                                                        <button matTooltip="Assign Task"
+                                                            matTooltipClass="custom-tooltip"
+                                                            *ngIf="item.taskCreatedBY==loginEmployee" mat-button
+                                                            (click)="AssignTask(item.taskID)"><i class="fa fa-tasks"
+                                                                aria-hidden="true"></i></button>
+
+                                                        <button matTooltip="Delete Task"
+                                                            matTooltipClass="custom-tooltip"
+                                                            *ngIf="item.taskCreatedBY==loginEmployee" mat-button
+                                                            (click)="deleteByTaskId(item.taskID)"> <i
+                                                                class="fa fa-trash" aria-hidden="true"></i> </button>
+                                                    </mat-card-actions>
+                                                </mat-card-footer>
+                                            </mat-card>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

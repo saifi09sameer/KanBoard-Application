@@ -1,0 +1,20 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Background Color Settings</mat-card-title>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <mat-selection-list #modes [multiple]="false" [(ngModel)]="selectedColor">
+        <mat-list-option value="black">Dark Mode</mat-list-option>
+        <mat-list-option value="white">Light Mode</mat-list-option>
+      </mat-selection-list>
+    </mat-card-content>
+  
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="submit()">Submit</button>
+      <button mat-button color="warn" (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>
+  
+
+

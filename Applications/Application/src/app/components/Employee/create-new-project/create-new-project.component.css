@@ -1,0 +1,112 @@
+/* .example-card {
+  width: 600px;
+  background-color: #9a7b7b;
+  
+}
+
+.example-card mat-card-header {
+  background-color: #aa9292;
+  
+  
+}
+
+.example-card mat-card-title {
+  color: #333;
+}
+
+.example-card mat-card-content {
+  background-color: #f5f5f5;
+}
+
+.example-card .form-group {
+  margin-bottom: 15px;
+}
+
+.example-card .form-control {
+  width: 100%;
+  height: 50px;
+}
+
+.example-card .row {
+  margin-bottom: 10px;
+}
+
+.example-card textarea {
+  width: 100%;
+ 
+}
+.message{
+  color: red;
+}
+.example-card mat-card-footer {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(212, 226, 224);
+  align-items: center;
+  padding: 10px;
+} */
+
+
+
+
+
+.example-card {
+  width: 650px;
+  height: auto;
+  background-color: #9a7b7b;
+}
+
+.example-card .header {
+  background-color: #d6c8c8;
+  padding: 10px;
+}
+
+.example-card .title {
+  color: #333;
+  font-weight: bold;
+}
+
+.example-card .content {
+  background-color: #f9f9f9;
+  padding: 10px;
+  overflow: hidden; /* Add this line to remove the overflow */
+}
+
+.example-card .form-group {
+  margin-bottom: 12px;
+}
+
+.example-card mat-form-field {
+  width: 100%;
+}
+
+.example-card .row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.example-card .col-md-6 {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.example-card textarea {
+  width: 100%;
+}
+
+.example-card mat-card-footer {
+  background-color: #d6c8c8;
+  padding: 10px;
+  display: flex;
+  justify-content: center; /* Change from "flex-end" to "center" to center-align the buttons */
+}
+
+.example-card .footer button {
+  margin-right: 10px;
+}
+
+
+
+
+
+

@@ -1,0 +1,54 @@
+.container {
+  margin-top: 10px;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+.myWidth{
+  width: 460px;
+}
+.mat-input-element {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #f2f2f2;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.mat-input-element:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.mat-datepicker-toggle {
+  color: #eaeded;
+  cursor: pointer;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}

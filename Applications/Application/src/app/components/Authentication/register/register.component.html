@@ -1,0 +1,83 @@
+<body>
+  
+  <div class="container">
+    <mat-card>
+      <h2 style="color: darkgoldenrod;"><strong>Register</strong></h2>
+      <form [formGroup]="employeeRegister" (ngSubmit)="proceedregister()">
+        <mat-form-field appearance="outline" class="input-field">
+          <mat-label>Name</mat-label>
+          <mat-icon matPrefix>person</mat-icon>
+          <input matInput type="text" formControlName="employeeName" placeholder="Name" required>
+          <mat-error *ngIf="employeeRegister.get('employeeName')?.errors?.['required'] && employeeRegister.get('employeeName')?.touched">
+            Name is required.
+          </mat-error>
+          <mat-error *ngIf="employeeRegister.get('employeeName')?.errors?.['pattern'] && employeeRegister.get('employeeName')?.touched">
+            Name should contain only letters and spaces.
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="input-field">
+          <mat-label>Email</mat-label>
+          <mat-icon matPrefix>email</mat-icon>
+          <input matInput type="email" formControlName="employeeEmail" placeholder="Email" required>
+          <mat-error *ngIf="employeeRegister.get('employeeEmail')?.errors?.['required'] && employeeRegister.get('employeeEmail')?.touched">
+            Email is required.
+          </mat-error>
+          <mat-error *ngIf="employeeRegister.get('employeeEmail')?.errors?.['pattern'] && employeeRegister.get('employeeEmail')?.touched">
+            Please enter a valid email address (e.g., nik@gmail.com).
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="input-field">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix>lock</mat-icon>
+          <input matInput type="password" formControlName="employeePassword" placeholder="Password" required>
+          <mat-error *ngIf="employeeRegister.get('employeePassword')?.errors?.['required'] && employeeRegister.get('employeePassword')?.touched">
+            Password is required.
+          </mat-error>
+          <mat-error *ngIf="employeeRegister.get('employeePassword')?.errors?.['pattern'] && employeeRegister.get('employeePassword')?.touched">
+            Password should contain at least one uppercase letter & one of the following special characters: @ or #.
+          </mat-error>
+        </mat-form-field>
+        
+  
+        <mat-form-field appearance="outline" class="input-field">
+          <mat-label>Phone Number</mat-label>
+          <mat-icon matPrefix>phone</mat-icon>
+          <input matInput type="text" formControlName="employeePhoneNumber" placeholder="Phone Number" required>
+          <mat-error *ngIf="employeeRegister.get('employeePhoneNumber')?.errors?.['required'] && employeeRegister.get('employeePhoneNumber')?.touched">
+            Phone Number is required.
+          </mat-error>
+          <mat-error *ngIf="employeeRegister.get('employeePhoneNumber')?.errors?.['pattern'] && employeeRegister.get('employeePhoneNumber')?.touched">
+            Please enter a valid phone number (e.g., 9876543210).
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" class="input-field">
+          <mat-label>Nationality</mat-label>
+          <mat-icon matPrefix>public</mat-icon>
+          <input matInput type="text" formControlName="nationality" placeholder="Nationality" required>
+          <mat-error *ngIf="employeeRegister.get('nationality')?.errors?.['required'] && employeeRegister.get('nationality')?.touched">
+            Nationality is required.
+          </mat-error>
+          <mat-error *ngIf="employeeRegister.get('nationality')?.errors?.['pattern'] && employeeRegister.get('nationality')?.touched">
+            Nationality should contain only letters and spaces.
+          </mat-error>
+        </mat-form-field>
+  
+        <div class="button-container">
+          <button mat-raised-button type="submit" [disabled]="!employeeRegister.valid" class="register-button">Register</button>
+          <button mat-raised-button routerLink="/login" class="login-link">Login</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+
+</body>
+
+
+
+
+
+
+

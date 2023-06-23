@@ -1,0 +1,290 @@
+<!-- 
+  <div class="card">
+    <div class="card-header">
+      <h3>Employee Updates</h3>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="employeeForm" (ngSubmit)="updateEmployee()">
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Employee ID</mat-label>
+                <input matInput formControlName="employeeID" placeholder="Employee ID">
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Employee Name</mat-label>
+                <input matInput formControlName="employeeName" placeholder="Employee Name">
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender" placeholder="Gender">
+                  <mat-option value="male">Male</mat-option>
+                  <mat-option value="female">Female</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Marital Status</mat-label>
+                <mat-select formControlName="maritalStatus" placeholder="Marital Status">
+                  <mat-option value="married">Married</mat-option>
+                  <mat-option value="unmarried">Unmarried</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" >
+                <div class="form-group" >
+                  <mat-form-field style="width: 200px;">
+                    <mat-label>Date of Birth</mat-label >
+                    <input  matInput [matDatepicker]="dobPicker" formControlName="employeeDOB" placeholder="Date of Birth">
+                    <mat-datepicker-toggle  matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                    <mat-datepicker  #dobPicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Aadhaar Number</mat-label>
+                <input matInput formControlName="employeeAadhaarNumber" placeholder="Aadhaar Number">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Blood Group</mat-label>
+                <input matInput formControlName="bloodGroup" placeholder="Blood Group">
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="employeePhoneNumber" placeholder="Phone Number">
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="employeeEmail" placeholder="Email">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Joining Date</mat-label>
+                <input matInput formControlName="joiningDate" placeholder="Joining Date">
+              </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field>
+                  <mat-label>Employee Role</mat-label>
+                  <mat-select formControlName="employeeRole" placeholder="Employee Role">
+                    <mat-option value="employee">Employee</mat-option>
+                    <mat-option value="Admin">Admin</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>          
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Nationality</mat-label>
+                <input matInput formControlName="nationality" placeholder="Nationality">
+              </mat-form-field>
+            </div>
+          </div>
+          
+          <div class="row justify-content-center">
+            <div class="col text-center">
+              <button style="margin-right: 50px;"  type="submit" mat-raised-button color="primary">Update Now</button>
+              <button type="button" mat-dialog-close mat-raised-button color="accent">Cancel</button>
+            </div>
+          </div>
+          
+          
+        </form>
+      </div>
+      <div class="card-footer">
+        <div *ngIf="progressDisplay" style="width: 700px; margin-top: 20px;">
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+        
+      </div>
+  </div>
+   -->
+
+
+
+
+   <div class="card">
+    <div class="card-header">
+      <h3>Employee Updates</h3>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="employeeForm" (ngSubmit)="updateEmployee()">
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Employee ID</mat-label>
+                <input matInput formControlName="employeeID" placeholder="Employee ID" readonly>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Employee Name</mat-label>
+                <input matInput formControlName="employeeName" placeholder="Employee Name">
+                <div *ngIf="employeeForm.get('employeeName')?.errors">
+                  <div style="color: red;" *ngIf="employeeForm.get('employeeName')?.errors?.['required']">
+                    Employee Name is required.
+                  </div>
+                  <div style="color: red;" *ngIf="employeeForm.get('employeeName')?.errors?.['pattern']">
+                    Employee Name should only start with an alphabetical character and cannot contain special characters.
+                  </div>
+                </div>
+              </mat-form-field>
+            </div>
+            
+            
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender" placeholder="Gender">
+                  <mat-option value="male">Male</mat-option>
+                  <mat-option value="female">Female</mat-option>
+                </mat-select>
+                <div *ngIf="employeeForm.get('gender')?.errors && employeeForm.get('gender')?.errors?.['required']"
+                  class="error-message"  style="color: red;">
+                  Gender is required.
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Marital Status</mat-label>
+                <mat-select formControlName="maritalStatus" placeholder="Marital Status">
+                  <mat-option value="married">Married</mat-option>
+                  <mat-option value="unmarried">Unmarried</mat-option>
+                </mat-select>
+                <div *ngIf="employeeForm.get('maritalStatus')?.errors && employeeForm.get('maritalStatus')?.errors?.['required']"
+                  class="error-message"  style="color: red;">
+                  Marital status is required.
+                </div>
+              </mat-form-field>
+            </div>
+            <div class="col-md-4" >
+                <div class="form-group" >
+                  <mat-form-field style="width: 200px;">
+                    <mat-label>Date of Birth</mat-label >
+                    <input  matInput [matDatepicker]="dobPicker" formControlName="employeeDOB" placeholder="Date of Birth">
+                    <mat-datepicker-toggle  matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                    <mat-datepicker  #dobPicker></mat-datepicker>
+                    <div *ngIf="employeeForm.get('employeeDOB')?.errors?.['futureDate']" style="color: red;">Date of Birth cannot be in the future.</div>
+                  </mat-form-field>
+                </div>
+              </div>
+              
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Aadhaar Number</mat-label>
+                <input matInput formControlName="employeeAadhaarNumber" placeholder="Aadhaar Number">
+                <div style="color: red;" *ngIf="employeeForm.get('employeeAadhaarNumber')?.errors?.['required']" class="error-message">
+                  Aadhaar Number is required.
+                </div>
+                <div style="color: red;" *ngIf="employeeForm.get('employeeAadhaarNumber')?.errors?.['pattern']" class="error-message">
+                  Aadhaar Number must be a 12-digit number.
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Blood Group</mat-label>
+                <input matInput formControlName="bloodGroup" placeholder="Blood Group">
+                <div style="color: red;" *ngIf="employeeForm.get('bloodGroup')?.errors?.['required']" class="error-message">
+                  Blood Group is required.
+                </div>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="employeePhoneNumber" placeholder="Phone Number">
+                <div style="color: red;" *ngIf="employeeForm.get('employeePhoneNumber')?.errors?.['required']" class="error-message">
+                  Phone Number is required.
+                </div>
+                <div style="color: red;" *ngIf="employeeForm.get('employeePhoneNumber')?.errors?.['pattern']" class="error-message">
+                  Phone Number must be a 10-digit number starting with a digit in the range of 6-9.
+                </div>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="employeeEmail" placeholder="Email" readonly>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Joining Date</mat-label>
+                <input matInput formControlName="joiningDate" placeholder="Joining Date" readonly>
+              </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field>
+                  <mat-label>Employee Role</mat-label>
+                  <mat-select formControlName="employeeRole" placeholder="Employee Role">
+                    <mat-option value="employee">Employee</mat-option>
+                    <mat-option value="Admin">Admin</mat-option>
+                  </mat-select>
+                  <div *ngIf="employeeForm.get('employeeRole')?.errors && employeeForm.get('employeeRole')?.errors?.['required']"
+                  class="error-message"  style="color: red;">
+                  Employee role is required.
+                </div>
+                </mat-form-field>
+              </div>          
+            <div class="col">
+              <mat-form-field>
+                <mat-label>Nationality</mat-label>
+                <input matInput formControlName="nationality" placeholder="Nationality">
+                <div *ngIf="employeeForm.get('nationality')?.errors">
+                  <div style="color: red;" *ngIf="employeeForm.get('nationality')?.errors?.['required']">
+                    Nationality is required.
+                  </div>
+                  <div style="color: red;" *ngIf="employeeForm.get('nationality')?.errors?.['pattern']">
+                    Nationality should only start with an alphabetical character and cannot contain special characters.
+                  </div>
+                </div>
+              </mat-form-field>
+            </div>
+          </div>
+          
+          <div class="row justify-content-center">
+            <div class="col text-center">
+              <button style="margin-right: 50px;"  type="submit" mat-raised-button color="primary">Update Now</button>
+              <button type="button" (click)="onCancel()" mat-raised-button color="accent">Cancel</button>
+            </div>
+          </div>
+          
+          
+        </form>
+      </div>
+      <div class="card-footer">
+        <div *ngIf="progressDisplay" style="width: 700px; margin-top: 20px;">
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+        <!-- <div *ngIf="progressDisplay" class="text-danger mt-3">
+          An error occurred during login. Please try again.
+        </div> -->
+      </div>
+  </div>

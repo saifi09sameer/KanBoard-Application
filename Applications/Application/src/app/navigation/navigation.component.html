@@ -1,0 +1,116 @@
+<ngx-ui-loader fgsColor="rgb(62, 170, 192)" fgsType="three-strings" pbColor="rgb(4, 73, 250)" text="Please Wait......."
+  textColor="rgb(22, 211, 56)">
+</ngx-ui-loader>
+
+<mat-sidenav-container [style.background-color]="backgroundColor" class="task-dashboard" ngxUiLoaderBlurred
+  class="sidenav-container">
+
+  <mat-sidenav-content>
+
+    <mat-toolbar *ngIf="isMenuVisible" color="primary">
+      <img class="dancing-image" style="height: 50px; width: 100px;"
+        src="../../../../assets/BackgroundImage/kanban_logo.png">
+
+
+
+      <span class="spacer"></span>
+
+      <span class="current-time">
+        <span class="hour" id="hour">{{ currentTime | date:'hh' }}</span> :
+        <span class="minute" id="minute">{{ currentTime | date:'mm' }}</span> :
+        <span class="second" id="second">{{ currentTime | date:'ss' }}</span>&nbsp;
+        <span class="ampm" id="ampm">{{ currentTime | date:'a' }}</span>
+      </span>
+
+
+
+
+
+
+
+
+      <div class="toolbar-buttons">
+
+        <button *ngIf="isAdmin" routerLink="/Admin" mat-raised-button color="primary">View Dashboard</button>
+        <button *ngIf="!isAdmin" routerLink="/employeeDashboard" mat-raised-button color="primary">View
+          Dashboard</button>
+        <span class="toolbar-gap"></span>
+        <button *ngIf="isAdmin" routerLink="/contract" mat-raised-button color="accent">Contact</button>
+        <span class="toolbar-gap"></span>
+        <button *ngIf="isAdmin" routerLink="/viewEmployee" mat-raised-button color="warn">View Employees</button>
+
+        <button matTooltip="Change Background Color" matTooltipClass="custom-tooltip" mat-icon-button
+          (click)="changeBackgroundColor()">
+          <mat-icon>palette</mat-icon>
+        </button>
+
+        <button mat-icon-button [matMenuTriggerFor]="onlineEmployeesMenu" (click)="getAllEmployeeStatus()">
+          <mat-icon>people</mat-icon>
+        </button>
+        <mat-menu #onlineEmployeesMenu="matMenu">
+          <ng-container *ngFor="let email of onlineEmployees">
+            <button mat-menu-item>
+              <mat-icon mat-list-icon>account_circle</mat-icon>
+              <span mat-line>{{ email }}</span>
+            </button>
+          </ng-container>
+          <button mat-menu-item *ngIf="onlineEmployees.length === 0" disabled>No online employees</button>
+        </mat-menu>
+
+
+        <button *ngIf="!isAdmin" style="margin-right: 12px;" mat-icon-button [matMenuTriggerFor]="notificationsMenu"
+          (click)="getAllNotifications()">
+          <mat-icon>notifications</mat-icon>
+          <span class="badge">{{ notifications.length }}</span>
+        </button>
+
+        <mat-menu #notificationsMenu="matMenu" class="custom-notification-menu">
+          <ng-container *ngIf="notifications.length === 0; else notificationList">
+            <button mat-menu-item disabled>No notifications</button>
+          </ng-container>
+          <ng-template #notificationList>
+            <div class="notification-grid">
+              <div *ngFor="let notification of notifications" class="notification-item">
+                <div class="notification-icon">
+                  <mat-icon mat-list-icon>notifications</mat-icon>
+                </div>
+                <div class="notification-content">
+                  <span class="notification-message">{{ notification }}</span>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </mat-menu>
+
+        <span class="greeting">Hi <span class="employee-name">{{ employeeLoginName }}</span></span>
+
+        <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #profileMenu="matMenu">
+          <span>{{employeeLoginName}}</span>
+          <button (click)="openProfile()" mat-menu-item>Profile</button>
+          <button (click)="openSettings()" mat-menu-item>Settings</button>
+          <button (click)="Logout()" mat-menu-item>LogOut</button>
+        </mat-menu>
+      </div>
+      <span class="spacer"></span>
+    </mat-toolbar>
+
+
+    <div *ngIf="isHome" class="navbar navbar-light bg-light justify-content-between">
+      <div class="d-flex align-items-center">
+        <a id="annymationNav" class="navbar-brand" style="color: #333; font-weight: bold; margin-right: auto; margin-left: 10px;">Welcome TO KanBoard
+          Application</a>
+      </div>
+      <form class="form-inline" style="margin-right: 15px;">
+        <button routerLink="/home" mat-raised-button color="primary" style="margin-right: 10px;">Home</button>
+        <button routerLink="/login" mat-raised-button color="accent" style="margin-right: 10px;">Login</button>
+        <button routerLink="/register" mat-raised-button color="warn">Register</button>
+      </form>
+    </div>
+
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

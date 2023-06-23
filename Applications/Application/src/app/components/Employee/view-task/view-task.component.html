@@ -1,0 +1,63 @@
+<div class="container">
+    <mat-card class="task-card">
+      <mat-card-header>
+        <mat-card-subtitle>
+          <span style="font-weight: bolder; color: brown;">Task ID</span>
+        </mat-card-subtitle>
+        <mat-card-title>{{ task.taskID }}</mat-card-title>
+        <mat-card-title-group>
+          <p><b> Project Id:</b>{{ projectId }}</p>
+        </mat-card-title-group>
+        <mat-card-title-group>
+          <p><b> Project Name:</b>{{ projectName }}</p>
+        </mat-card-title-group>
+        <mat-card-title-group>
+          <p><b>Start Date:</b> {{ task.taskCreatedDate }}</p>
+        </mat-card-title-group>
+        <mat-card-title-group>
+          <p><b>End Date:</b> {{ task.taskEndDate }}</p>
+        </mat-card-title-group>
+      </mat-card-header>
+  
+      <mat-card-content>
+        <p><b>Task Title:</b> {{ task.taskName }}</p>
+        <p><b>Task Created BY :</b> {{ task.taskCreatedBY }}</p>
+      </mat-card-content>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <form>
+        <div class="align">
+          <p><b> Write Your Task Description</b></p>
+  
+          <mat-form-field class="textArea">
+            <mat-label>Write Here...........</mat-label>
+            <textarea
+              style="color: black;"
+              matInput
+              rows="3"
+              [(ngModel)]="newTaskDescription"
+              name="taskDescription"
+            ></textarea>
+          </mat-form-field>
+          <p><b>Task Description</b></p>
+  
+          <mat-form-field class="textArea">
+            <mat-label>Data</mat-label>
+            <textarea style="color: black;" matInput rows="7" readonly>{{ task.taskDescription + "  " + newTaskDescription }}</textarea>
+          </mat-form-field>
+        </div>
+      </form>
+  
+      <mat-card-actions style="justify-content: center;">
+        <div class="button-container">
+          <button mat-raised-button color="primary" (click)="updateTask()">Update</button>&nbsp;&nbsp;&nbsp;
+          <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+
+        </div>
+      </mat-card-actions>
+  
+      <mat-card-footer *ngIf="isVisible">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+  

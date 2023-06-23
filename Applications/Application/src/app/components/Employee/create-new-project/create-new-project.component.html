@@ -1,0 +1,117 @@
+<!-- <mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title style="font-weight: bold;">Create Project</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="projectForm">
+      <div class="form-group">
+        <label style="margin-top: 5px;" for="exampleFormControlInput2">Project Name</label>
+        <input type="text" class="form-control" id="exampleFormControlInput2" formControlName="projectName" placeholder="Enter Project Name">
+        <div *ngIf="projectForm.get('projectName')?.invalid && (projectForm.get('projectName')?.touched || projectForm.get('projectName')?.dirty)" class="message">
+          Project Name is required
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="exampleFormControlInput4">Project Created Date</label>
+            <input type="date" class="form-control" id="exampleFormControlInput4" formControlName="createdDate" readonly>
+          </div>
+          <div class="col-md-6">
+            <label for="exampleFormControlInput5">Project End Date</label>
+            <input type="date" class="form-control" id="exampleFormControlInput5" formControlName="endDate">
+            <div *ngIf="projectForm.get('endDate')?.invalid && projectForm.get('endDate')?.errors?.['endDateInvalid']" class="message">
+              Invalid End Date. End Date must be greater than or equal to today.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Description</label>
+        <textarea style="height: 150px;" class="form-control" id="exampleFormControlTextarea1" formControlName="description" rows="5" placeholder="Enter Project Description"></textarea>
+        <div *ngIf="projectForm.get('description')?.invalid && (projectForm.get('description')?.touched)" class="message">
+          Description must be 200 characters or less
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-footer>
+    <button mat-button color="accent" (click)="createProject()">Create Project</button>
+    <button mat-button color="warn" (click)="cancel()">Cancel</button>
+  </mat-card-footer>
+</mat-card> -->
+
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <div class="header">
+      <mat-card-title class="title">Create Project</mat-card-title>
+    </div>
+  </mat-card-header>
+  <mat-card-content class="content">
+    <form [formGroup]="projectForm">
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Project Name</mat-label>
+          <mat-icon matPrefix>assignment</mat-icon>
+          <input matInput formControlName="projectName" placeholder="Enter Project Name">
+          <mat-error *ngIf="projectForm.get('projectName')?.errors?.['required'] && (projectForm.get('projectName')?.touched || projectForm.get('projectName')?.dirty)">
+            Project Name is required
+          </mat-error>
+          <mat-error *ngIf="projectForm.get('projectName')?.errors?.['pattern'] && (projectForm.get('projectName')?.touched || projectForm.get('projectName')?.dirty)">
+            Project Name must start with a letter and can contain letters, numbers, and spaces only
+          </mat-error>
+        </mat-form-field>
+      </div>
+      
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Project Created Date</mat-label>
+              <input matInput formControlName="createdDate" [readonly]="true" type="date">
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Project End Date</mat-label>
+              <input matInput [matDatepicker]="endDatePicker" formControlName="endDate" readonly>
+              <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #endDatePicker></mat-datepicker>
+              <mat-error *ngIf="projectForm.get('endDate')?.invalid && projectForm.get('endDate')?.errors?.['endDateInvalid']">
+                End Date can not be past
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <mat-icon matPrefix>description</mat-icon>
+          <textarea matInput formControlName="description" rows="5" placeholder="Enter Project Description"></textarea>
+          <mat-error *ngIf="projectForm.get('description')?.invalid && (projectForm.get('description')?.touched)">
+            Description must be 200 characters or less
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-footer>
+    <div class="footer">
+      <button mat-flat-button color="accent" (click)="createProject()">
+        <mat-icon>add</mat-icon> Create Project
+      </button>
+      <button mat-flat-button color="warn" mat-dialog-close="false">
+        <mat-icon>close</mat-icon> Close
+      </button>
+    </div>
+  </mat-card-footer>
+</mat-card>
+
+
+
+
+
+
+

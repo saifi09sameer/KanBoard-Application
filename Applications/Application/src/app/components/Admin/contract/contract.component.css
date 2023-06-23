@@ -1,0 +1,65 @@
+
+.mat-elevation-z8 {
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.5s ease-in-out;
+  }
+
+  .mat-elevation-z8:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  }
+  .myHead {
+    background-color: aqua!important;
+  }
+  
+  .mat-table th,
+  .mat-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .mat-table th {
+    font-weight: bold;
+    background-color: #f2f2f2;
+  }
+  
+  .mat-table tr:hover {
+    background-color: #f5f5f5;
+  }
+  .myTabeDef{
+    background-color: antiquewhite;
+  }
+  .mat-row.no-data-row {
+    font-style: italic;
+    text-align: center;
+  }
+  
+  .mat-mdc-form-field {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .mat-label {
+    font-weight: bold;
+  }
+
+.container-fluid{
+  margin-top: 10px;
+}
+
+  .example-action-buttons {
+    padding-bottom: 20px;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+    margin-left: 8px;
+
+  }
+  

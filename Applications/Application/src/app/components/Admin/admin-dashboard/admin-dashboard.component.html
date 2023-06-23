@@ -1,0 +1,77 @@
+<body style="background-color: rgb(141, 132, 132);">
+  
+  <div id="main">
+    <div class="clearfix"></div>
+    <br/>
+  
+    <div class="col-div-3">
+      <div class="box">
+        <p>{{employees.length}}<br/><span>Employees</span></p>
+        <i class="fa fa-users box-icon"></i>
+      </div>
+    </div>
+    <div class="col-div-3">
+      <div class="box">
+        <p>{{onlineEmployees.length}}<br/><span>Online Employees</span></p>
+        <i class="fa fa-list box-icon"></i>
+      </div>
+    </div>
+    <div class="col-div-3">
+      <div class="box">
+        <p>{{totalProjects}}<br/><span>Project</span></p>
+        <i class="fa fa-shopping-bag box-icon"></i>
+      </div>
+    </div>
+    <div class="col-div-3">
+      <div class="box">
+        <p>{{totalTasks}}<br/><span>Tasks</span></p>
+        <i class="fa fa-tasks box-icon"></i>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <br/><br/>
+    <div class="col-div-12">
+      <div class="box-8">
+        <div class="content-box">
+          <p>Top Projects</p>
+          <br/>
+          <div class="table-container">
+            <table>
+              <tr>
+                <th>Project ID</th>
+                <th>Project Name</th>
+                <th>Created By</th>
+                <th>Task Count</th>
+              </tr>
+              <tr *ngFor="let project of top5Projects">
+                <td>{{ project.projectID }}</td>
+                <td>{{ project.projectName }}</td>
+                <td>{{ project.createdBY }}</td>
+                <td>{{ project.taskList.length }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-div-4">
+      <div class="box-4">
+        <div class="content-box">
+          <p>Total</p>
+          <div class="circle-wrap">
+            <div class="circle">
+              <div class="mask full">
+                <div class="fill"></div>
+              </div>
+              <div class="mask half">
+                <div class="fill"></div>
+              </div>
+              <div class="inside-circle"> 70% </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  
+</body>

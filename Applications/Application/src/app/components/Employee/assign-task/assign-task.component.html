@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="left-container">
+    <div class="input-container">
+      <label class="label">Assign Task to Employee:</label>
+      <hr>
+      <input type="text" class="input-box" [(ngModel)]="searchEmployee" (input)="filterEmployees()" (click)="toggleDropdown()">
+      <ul class="dropdown" *ngIf="showDropdown">
+        <li *ngFor="let employee of filteredEmployeesList" (click)="selectEmployee(employee)">{{ employee }}</li>
+      </ul>
+    </div>
+    <button class="add-button"  (click)="addEmployee()">Add</button>
+  </div>
+  <div class="right-container">
+    <i class="close-icon" (click)="close()">&times;</i>
+    &nbsp;
+    <hr>
+    <div class="task-assignment">
+      <table>
+        <thead>
+          <tr>
+            <th>Assigned Employees</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let assignedEmployee of assignedEmployees">
+            <td>{{ assignedEmployee }}</td>
+            <td><i class="delete-icon" (click)="removeAssignEmployee(assignedEmployee)">&times;</i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div> 
+  </div>
+</div>

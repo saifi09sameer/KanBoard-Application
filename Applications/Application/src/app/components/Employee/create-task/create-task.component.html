@@ -1,0 +1,73 @@
+<div class="container">
+  <h2 class="text-center" style="color: blueviolet;">Create Task</h2>
+    <form [formGroup]="projectForm" (ngSubmit)="createTask()">
+      <mat-form-field class="myWidth">
+        <mat-label>Task Name</mat-label>
+        <input matInput formControlName="taskName">
+        <mat-error *ngIf="projectForm.get('taskName')?.invalid && projectForm.get('taskName')?.touched" class="error-message">
+          Task Name is required and should only contain characters and spaces.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="myWidth">
+        <mat-label>Task Description</mat-label>
+        <textarea matInput formControlName="taskDescription" required></textarea>
+        <mat-error *ngIf="projectForm.get('taskDescription')?.invalid && projectForm.get('taskDescription')?.touched" class="error-message">
+          Task Description is required.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="myWidth">
+        <mat-label>Task Created Date</mat-label>
+        <input matInput [matDatepicker]="createdDatePicker" formControlName="taskCreatedDate" >
+        <mat-datepicker-toggle matSuffix [for]="createdDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #createdDatePicker></mat-datepicker>
+        <mat-error *ngIf="projectForm.get('taskCreatedDate')?.hasError('currentDateInvalid')">
+          Please select the current date.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="myWidth">
+        <mat-label>Task End Date</mat-label>
+        <input matInput [matDatepicker]="endDatePicker" formControlName="taskEndDate" >
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+        <mat-error *ngIf="projectForm.get('taskEndDate')?.touched" class="error-message">
+          Task End Date is required .
+        </mat-error>
+        <mat-error *ngIf="projectForm.get('taskEndDate')?.hasError('endDateInvalid')">
+          End date cannot be a past date.
+        </mat-error>
+      </mat-form-field>
+      
+  
+      <mat-form-field class="myWidth">
+        <mat-label>Task Priority</mat-label>
+        <mat-select formControlName="taskPriority" >
+          <mat-option value="High">High</mat-option>
+          <mat-option value="Medium">Normal</mat-option>
+          <mat-option value="Low">Low</mat-option>
+        </mat-select>
+        <mat-error *ngIf="projectForm.get('taskPriority')?.invalid && projectForm.get('taskPriority')?.touched" class="error-message">
+          Task Priority is required.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field class="myWidth">
+        <mat-label>Task Stage</mat-label>
+        <mat-select formControlName="taskStage" >
+          <mat-option value="To Do">TO DO</mat-option>
+          <mat-option value="In Progress">In Progress</mat-option>
+          <mat-option value="Review">Review</mat-option>
+          <mat-option value="Done">Done</mat-option>
+        </mat-select>
+        <mat-error *ngIf="projectForm.get('taskStage')?.invalid && projectForm.get('taskStage')?.touched" class="error-message">
+          Task Stage is required.
+        </mat-error>
+      </mat-form-field>
+  
+      <div class="button-container">
+        <button mat-raised-button color="primary" [disabled]="projectForm.invalid" type="submit">Create Task</button>
+      </div>
+    </form>
+  </div>

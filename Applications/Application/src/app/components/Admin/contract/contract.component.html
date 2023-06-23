@@ -1,0 +1,75 @@
+
+
+
+<div class="container-fluid">
+    <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Contact Message
+                </mat-panel-title>
+                <mat-panel-description>
+    
+                    All contact messages and complaints will be displayed here.
+                    <mat-icon>account_circle</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div style="display: flex; justify-content: flex-end; margin-bottom: -25px; margin-top: -12px;">
+                <mat-form-field style="width: 280px;">
+                    <mat-label>Search</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. saifi09sameer@gmail.com" #input>
+                </mat-form-field>
+            </div>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+    
+                <ng-container matColumnDef="Name">
+                    <th class="myHead" mat-header-cell *matHeaderCellDef> Name </th>
+                    <td class="myTabeDef" mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+    
+    
+                <ng-container matColumnDef="Email">
+                    <th class="myHead" mat-header-cell *matHeaderCellDef> Email </th>
+                    <td class="myTabeDef" mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+    
+    
+                <ng-container matColumnDef="Subject">
+                    <th class="myHead" mat-header-cell *matHeaderCellDef> Subject </th>
+                    <td class="myTabeDef" mat-cell *matCellDef="let element"> {{element.subject}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Message">
+                    <th class="myHead" mat-header-cell *matHeaderCellDef> Message </th>
+                    <td class="myTabeDef" mat-cell *matCellDef="let element"> {{element.message}} </td>
+                </ng-container>
+    
+    
+                <ng-container matColumnDef="Date">
+                    <th class="myHead" mat-header-cell *matHeaderCellDef> Date </th>
+                    <td class="myTabeDef" mat-cell *matCellDef="let element"> {{element.date}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="Action">
+                    <th class="myHead" mat-header-cell *matHeaderCellDef> Action </th>
+                    <td class="myTabeDef" mat-cell *matCellDef="let element">
+    
+                        <button (click)="deleteMessage(element.id)"atTooltip="Delete" matTooltipClass="custom-tooltip" mat-icon-button color="primary">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                </tr>
+            </table>
+            
+    
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

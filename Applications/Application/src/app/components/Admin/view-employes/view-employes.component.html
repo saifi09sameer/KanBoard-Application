@@ -1,0 +1,62 @@
+<mat-form-field>
+  <mat-label>Search Here...........</mat-label>
+  <input  matInput (keyup)="applyFilter($event)" placeholder="Ex. Sameer"  #input>
+  
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  
+  <ng-container matColumnDef="employeeID">
+    <th mat-header-cell *matHeaderCellDef> Employee ID. </th>
+    <td mat-cell *matCellDef="let element"> {{element.employeeID}} </td>
+  </ng-container>
+
+  
+  <ng-container matColumnDef="employeeName">
+    <th mat-header-cell *matHeaderCellDef> Employee Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.employeeName}} </td>
+  </ng-container>
+
+ 
+  <ng-container matColumnDef="employeeEmail">
+    <th mat-header-cell *matHeaderCellDef> Employee Email </th>
+    <td mat-cell *matCellDef="let element"> {{element.employeeEmail}} </td>
+  </ng-container>
+
+  
+  <ng-container matColumnDef="employeePhoneNumber">
+    <th mat-header-cell *matHeaderCellDef>Employee Phone Number </th>
+    <td mat-cell *matCellDef="let element"> {{element.employeePhoneNumber}} </td>
+  </ng-container>
+
+ 
+  <ng-container matColumnDef="joiningDate">
+    <th mat-header-cell *matHeaderCellDef> Joining Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.joiningDate}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element" class="action-buttons">
+      <button matTooltip="Delete" matTooltipClass="custom-tooltip" (click)="deleteEmployee(element)" mat-icon-button color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button matTooltip="Edit" matTooltipClass="custom-tooltip" (click)="updateEmployee(element)" mat-icon-button color="primary">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+  </tr>
+  
+</table>
+
+
+

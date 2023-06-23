@@ -1,0 +1,60 @@
+<div class="mat-dialog-content project-container">
+  <div class="details-column">
+    <h2>Project Details</h2>
+    <hr>
+    <table class="project-details">
+      <tbody>
+        <tr>
+          <td><strong>Project ID:</strong></td>
+          <td>{{ projectData.projectID }}</td>
+        </tr>
+        <tr>
+          <td><strong>Project Name:</strong></td>
+          <td>{{ projectData.projectName }}</td>
+        </tr>
+        <tr>
+          <td><strong>Project Description:</strong></td>
+          <td>{{ projectData.projectDescription }}</td>
+        </tr>
+        <tr>
+          <td><strong>Created By:</strong></td>
+          <td>{{ projectData.createdBY }}</td>
+        </tr>
+        <tr>
+          <td><strong>Created Date:</strong></td>
+          <td>{{ projectData.projectCreatedDate }}</td>
+        </tr>
+        <tr>
+          <td><strong>Project End Date:</strong></td>
+          <td>{{ projectData.projectEndDate }}</td>
+        </tr>
+        <tr *ngIf="loginEmployee==projectData.createdBY">
+          <td><strong>Total Tasks:</strong></td>
+          <td>{{ projectData.taskList.length }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="employees-column">
+    <h2>Assigned Employees</h2>
+    <hr>
+    <div class="scrollable-table-wrapper">
+      <table class="employees-table">
+        <thead>
+          <tr>
+            <th>Employee Name</th>
+          </tr>
+         
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of projectData.employeeList">
+            <td>{{ employee }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <button matTooltip="Close" matTooltipClass="custom-tooltip" style="background-color: red;color: white;" mat-icon-button class="close-button" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

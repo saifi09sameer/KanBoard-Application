@@ -1,0 +1,76 @@
+.mat-dialog-content {
+  overflow: hidden;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.project-container {
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 500px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.details-column {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.employees-column {
+  flex: 1;
+}
+
+.project-details {
+  margin-bottom: 20px;
+}
+
+.project-details table {
+  width: 610px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.project-details th,
+.project-details td {
+  width: 305px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.project-details th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.scrollable-table-wrapper {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.employees-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.employees-table th,
+.employees-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #888;
+}
+
+.project-details p {
+  margin-bottom: 8px;
+}

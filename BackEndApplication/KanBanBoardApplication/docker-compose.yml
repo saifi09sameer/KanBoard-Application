@@ -1,0 +1,126 @@
+version: "3.9"
+networks:
+  KanbanNetwork:
+    driver: bridge
+
+services:
+  mysql-service:
+    image: mysql:latest
+    container_name: mysql-container-kanban
+    ports:
+      - "3306:3306"
+    networks:
+      - KanbanNetwork
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+  mongo-db-service:
+    image: mongo:latest
+    container_name: MongoDB-container-kanban
+    networks:
+      - KanbanNetwork
+    ports:
+      - "27017:27017"
+
+
+  RabbitMQ-service:
+    image: rabbitmq:3-management
+    container_name: RabbitMQ-container-kanban
+    ports:
+      - 5673:5672
+      - 15673:15672
+    networks:
+      - KanbanNetwork
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+  eureka-service:
+    container_name: eureka-container-kanban
+    build: EurekaServer/
+    ports:
+      - "8761:8761"
+    restart: always
+    networks:
+      - KanbanNetwork
+
+  api-gateway-service:
+    container_name: api-gateway-container-kanban
+    build: ApiGateWay/
+    networks:
+      - KanbanNetwork
+    ports:
+      - "7860:7860"
+    depends_on:
+      - eureka-service
+    restart: always
+
+  employee-authentication-service:
+    container_name: employee-authentication-container-kanban
+    build: Authentication-Application/
+    networks:
+      - KanbanNetwork
+    ports:
+      - "9911:9911"
+    depends_on:
+      - mysql-service
+      - eureka-service
+    restart: always
+
+  employee-task-service:
+    container_name: employee-task-container-kanban
+    build: EmployeeTask/
+    networks:
+      - KanbanNetwork
+    ports:
+      - "9922:9922"
+    depends_on:
+      - RabbitMQ-service
+      - mongo-db-service
+      - eureka-service
+    restart: always
+    environment:
+      SPRING_RABBITMQ_HOST: RabbitMQ-container-kanban
+
+  employee-notification-service:
+    container_name: employee-notification-container-kanban
+    build: EmployeeNotification/
+    networks:
+      - KanbanNetwork
+    ports:
+      - "9933:9933"
+
+    links:
+      - RabbitMQ-service
+    environment:
+        - SPRING_RABBITMQ_HOST=RabbitMQ-service
+        - SPRING_RABBITMQ_PORT=5672
+        - SPRING_RABBITMQ_USERNAME=guest
+        - SPRING_RABBITMQ_PASSWORD=guest
+    depends_on:
+      - eureka-service
+      - mongo-db-service
+      - RabbitMQ-service
+    restart: always
+
+  user-contact-service:
+    container_name: user-contact-container-kanban
+    build: ContactService/
+    networks:
+      - KanbanNetwork
+    ports:
+      - "9944:9944"
+    depends_on:
+      - mongo-db-service
+      - eureka-service
+    restart: always
+
+
+
+
+
+
+

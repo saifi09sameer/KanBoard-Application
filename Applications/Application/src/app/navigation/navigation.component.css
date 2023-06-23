@@ -1,0 +1,265 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.dancing-image {
+  animation: dance 2s infinite;
+}
+
+@keyframes dance {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  50% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.my360 {
+  animation: rotate360 4s linear 2;
+  transform-origin: center;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toolbar-buttons {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.toolbar-buttons button {
+  margin-left: 10px;
+}
+
+.greeting {
+  margin-left: 10px;
+}
+
+.employee-name {
+  font-weight: bold;
+}
+
+.badge {
+  background-color: red;
+  color: white;
+  border-radius: 45%;
+  padding: 5px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.custom-notification-menu {
+  width: 400px;
+  max-height: none !important;
+  overflow: hidden !important;
+  left: 0 !important;
+  right: auto !important;
+}
+
+.notification-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: #e3f2fd;
+  border-radius: 4px;
+}
+
+.notification-icon {
+  margin-right: 8px;
+}
+
+.notification-message {
+  font-size: 14px;
+  color: #333;
+}
+
+@keyframes greetingAnimation {
+  0% {
+    color: #000;
+  }
+  25% {
+    color: #FFC0CB;
+  }
+  50% {
+    color: #FFD700;
+  }
+  75% {
+    color: #ADD8E6;
+  }
+  100% {
+    color: #000;
+  }
+}
+
+.greeting {
+  animation: greetingAnimation 5s linear infinite;
+}
+
+@keyframes toolbarButtonsAnimation {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.toolbar-buttons {
+  animation: toolbarButtonsAnimation 1s ease-in-out forwards;
+}
+
+.mat-toolbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-dashboard {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dancing-image:hover {
+  animation: dance 1s infinite;
+}
+
+.dancing-image {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: rotate360 4s linear infinite;
+  transform-origin: center;
+}
+
+.custom-notification-menu {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification-item:hover {
+  background-color: #c1e5f2;
+}
+
+@keyframes greetingAnimation {
+  0% {
+    color: #000;
+  }
+  25% {
+    color: #FFC0CB;
+  }
+  50% {
+    color: #FFD700;
+  }
+  75% {
+    color: #ADD8E6;
+  }
+  100% {
+    color: #000;
+  }
+}
+
+.greeting {
+  animation: greetingAnimation 5s linear infinite;
+}
+
+
+
+
+.current-time {
+  margin-left: 460px;
+  margin-right: auto;
+}
+
+
+
+.current-time {
+  display: inline-block;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.hour {
+  color: blue;
+  animation: colorAnimationHour 1s infinite alternate;
+}
+
+.minute {
+  color: yellow;
+  animation: colorAnimationMinute 1s infinite alternate;
+}
+
+.second {
+  color: green;
+  animation: colorAnimationSecond 1s infinite alternate;
+}
+
+.ampm {
+  color: orange;
+  animation: colorAnimationAMPM 1s infinite alternate;
+}
+
+@keyframes colorAnimationHour {
+  0% { color: blue; }
+  50% { color: red; }
+  100% { color: blue; }
+}
+
+@keyframes colorAnimationMinute {
+  0% { color: yellow; }
+  50% { color: purple; }
+  100% { color: yellow; }
+}
+
+@keyframes colorAnimationSecond {
+  0% { color: green; }
+  50% { color: orange; }
+  100% { color: green; }
+}
+
+@keyframes colorAnimationAMPM {
+  0% { color: orange; }
+  50% { color: pink; }
+  100% { color: orange; }
+}
+
+
+
+
+
+@keyframes slideInAndColor {
+  from {
+    transform: translateX(-100%);
+    color: blue;
+  }
+  to {
+    transform: translateX(0);
+    color: red;
+  }
+}
+
+#annymationNav {
+  animation: slideInAndColor 500ms;
+}
+
+
+

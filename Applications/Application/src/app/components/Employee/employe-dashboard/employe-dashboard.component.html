@@ -1,0 +1,74 @@
+<div class="sideButtons">
+  <button class="animated-button" matTooltip="Create New Project" matTooltipClass="custom-tooltip"  (click)="openCreateProject()" mat-icon-button color="primary">
+    <mat-icon>playlist_add</mat-icon>
+  </button>
+</div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <ng-container *ngIf="projectList.length > 0; else noProjects">
+        <div class="col-md-3" *ngFor="let project of projectList; let i = index;">
+          <div class="card mb-4 project-card">
+            <div class="card-header">
+              <div class="project-info">
+                <div style="color: rgb(66, 74, 86);" class="project-id">Project ID     : <span style="color: antiquewhite;">{{ project.projectID }}</span></div>
+                <div style="color: rgb(66, 74, 86);" class="project-name">Project Name  : <span style="color: antiquewhite;">{{ project.projectName }}</span></div>
+              </div>
+            </div>
+            
+            <div class="card-body">
+              <p class="card-text">{{ project.projectDescription }}</p>
+              <ul class="list-unstyled">
+                <li>Created By: {{ project.createdBY }}</li>
+                <li>Created Date: <span class="text-success">{{ project.projectCreatedDate }}</span></li>
+                <li>End Date: <span class="text-danger">{{ project.projectEndDate }}</span></li>
+              </ul>
+              <hr>
+            </div>
+            <div class="card-footer">
+              <div class="d-flex justify-content-between">
+                <button matTooltip="Open Project" matTooltipClass="custom-tooltip" [routerLink]="['/taskDashboard', project.projectID]" mat-mini-fab color="primary">
+                  <mat-icon>content_paste</mat-icon>
+                </button>
+    
+                <button matTooltip="Assign Project" matTooltipClass="custom-tooltip" *ngIf="project.createdBY == LoginemployeeEmail" (click)="openAssign(project.projectID)" mat-mini-fab color="accent">
+                  <mat-icon style="font-size: 25px;">person_add</mat-icon>
+                </button>
+    
+                <button matTooltip="Delete Project" matTooltipClass="custom-tooltip" *ngIf="project.createdBY == LoginemployeeEmail" mat-mini-fab color="warn" (click)="deleteProject(project.projectID)">
+                  <mat-icon style="font-size: 25px;">delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <ng-template #noProjects>
+      <div class="row justify-content-center align-items-center mt-4">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h3 class="no-project-message">
+                <span class="animated">You</span>&nbsp;
+                <span class="animated">Don't</span>&nbsp;
+                <span class="animated">Have</span>&nbsp;
+                <span class="animated">Any</span>&nbsp;
+                <span class="animated">Projects</span>
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    
+    
+  </div>
+  
+  
+  
+  
+
+
+

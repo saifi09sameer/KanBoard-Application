@@ -1,0 +1,49 @@
+
+<div class="sideButtons">
+
+  <button matTooltip="Go Back" matTooltipClass="custom-tooltip" mat-icon-button color="primary" class="back-button" (click)="backToTask()" style="float: right;">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <button matTooltip="Delete All" matTooltipClass="custom-tooltip" *ngIf="projectCreatedBy==employeeEmail" mat-icon-button color="primary" class="back-button" (click)="deleteAllTasks()" style="float: right;">
+    <mat-icon>delete_forever</mat-icon>
+  </button>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3" *ngFor="let task of DeletedTask">
+      <mat-card class="mb-4 card" matRipple>
+        <mat-card-header>
+          <div class="card-id">
+            <span style="color: rgb(182, 69, 69);">Task ID:</span> {{ task.taskID }}
+          </div>
+          <hr>
+        </mat-card-header>
+        <mat-card-content>
+          <h5 class="card-title"><strong>Title :</strong> {{ task.taskName }}</h5>
+          <p class="card-text"><strong style="color: rgb(19, 211, 70);">Created Date :</strong> {{ task.taskCreatedDate
+            }}</p>
+          <p class="card-text"><strong style="color: rgb(213, 28, 28);">End Date :</strong> {{ task.taskEndDate }}</p>
+          <p class="card-text"><strong style="color: rgb(147, 43, 129);">Priority :</strong> {{ task.taskPriority }}</p>
+        </mat-card-content>
+        <mat-card-footer>
+          <button  matTooltip="Delete" matTooltipClass="custom-tooltip" (click)="deleteByTaskId(task.taskID)" style="margin-left: 120px;" mat-icon-button color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button  matTooltip="Undo" matTooltipClass="custom-tooltip" (click)="UndoTask(task.taskID)" mat-icon-button color="accent">
+            <mat-icon>undo</mat-icon>
+          </button>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+

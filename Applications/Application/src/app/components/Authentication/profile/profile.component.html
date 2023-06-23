@@ -1,0 +1,135 @@
+
+
+    <div class="show">
+        <div class="profile-container">
+          <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <!-- <div class="image-upload col-md-3">
+                  <div class="image-preview" [style.background-image]="'url(' + getImageURL() + ')'"></div>
+                  <input type="file" (change)="onImageUpload($event)" accept="image/*">
+                </div> -->
+                <div class="cards">
+                <div class="employee-data col-md-9">
+                    <h3>{{ employee.employeeName }}</h3>
+                    <p>{{ employee.employeeEmail }}</p>
+                    <p><strong>Joining On: </strong>{{employee.joiningDate }}</p>
+                </div>
+            </div>
+              </div>
+              
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label>Employee ID:</label>
+                <input type="number" formControlName="employeeID" readonly>
+              </div>
+              <div class="form-group col-md-3">
+                <label>Employee Name:</label>
+                <input type="text" formControlName="employeeName">
+                <div style="color: red;" *ngIf="profileForm.get('employeeName')?.errors && profileForm.get('employeeName')?.errors?.['required']">
+                  Employee Name is required.
+                </div>
+                <div style="color: red;" *ngIf="profileForm.get('employeeName')?.errors && profileForm.get('employeeName')?.errors?.['pattern']">
+                  Employee Name should only start with an alphabetical character and cannot contain special characters.
+                </div>
+              </div>
+              <div class="form-group col-md-3">
+                <label>Gender:</label>
+                <select formControlName="gender" class="gender-select">
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+                <div *ngIf="profileForm.get('gender')?.errors && profileForm.get('gender')?.errors?.['required']"
+                  class="error-message"  style="color: red;">
+                  Gender is required.
+                </div>
+              </div>
+              
+              <div class="form-group col-md-3">
+                <label>Marital Status:</label>
+                <select formControlName="maritalStatus" class="marital-status-select">
+                  <option value="" disabled selected>Select marital status</option>
+                  <option *ngFor="let option of maritalStatusOptions" [value]="option">{{ option }}</option>
+                </select>
+                <div *ngIf="profileForm.get('maritalStatus')?.errors && profileForm.get('maritalStatus')?.errors?.['required']"
+                  class="error-message" style="color: red;">
+                  Marital status is required.
+                </div>
+              </div>          
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label>Date of Birth:</label>
+                <input type="date" formControlName="employeeDOB">
+                <div *ngIf="profileForm.get('employeeDOB')?.errors?.['futureDate']" style="color: red;">Date of Birth cannot be in the future.</div>
+              </div>
+              <div class="form-group col-md-3">
+                <label>Aadhaar Number:</label>
+                <input type="number" formControlName="employeeAadhaarNumber">
+                <div style="color: red;" *ngIf="profileForm.get('employeeAadhaarNumber')?.errors?.['required']" class="error-message">
+                  Aadhaar Number is required.
+                </div>
+                <div style="color: red;" *ngIf="profileForm.get('employeeAadhaarNumber')?.errors?.['pattern']" class="error-message">
+                  Aadhaar Number must be a 12-digit number.
+                </div>
+              </div>
+            
+              <div class="form-group col-md-3">
+                <label>Blood Group:</label>
+                <input type="text" formControlName="bloodGroup">
+                <div style="color: red;" *ngIf="profileForm.get('bloodGroup')?.errors?.['required']" class="error-message">
+                  Blood Group is required.
+                </div>
+              </div>
+            
+              <div class="form-group col-md-3">
+                <label>Phone Number:</label>
+                <input type="text" formControlName="employeePhoneNumber">
+                <div style="color: red;" *ngIf="profileForm.get('employeePhoneNumber')?.errors?.['required']" class="error-message">
+                  Phone Number is required.
+                </div>
+                <div style="color: red;" *ngIf="profileForm.get('employeePhoneNumber')?.errors?.['pattern']" class="error-message">
+                  Phone Number must be a 10-digit number starting with a digit in the range of 6-9.
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label>Email:</label>
+                <input type="email" formControlName="employeeEmail" readonly>
+              </div>
+              <div class="form-group col-md-3">
+                <label>Joining Date:</label>
+                <input type="date" formControlName="joiningDate" readonly>
+              </div>
+              <div class="form-group col-md-3">
+                <label>Role:</label>
+                <input type="text" formControlName="employeeRole" readonly>
+              </div>
+              <div class="form-group col-md-3">
+                <label>Nationality:</label>
+                <input type="text" formControlName="nationality" readonly>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <label>City:</label>
+                <input type="text" formControlName="employeeCity">
+                <div style="color: red;" *ngIf="profileForm.get('employeeCity')?.errors?.['required']" class="error-message">
+                  City is required.
+                </div>
+                <div style="color: red;" *ngIf="profileForm.get('employeeCity')?.errors?.['pattern']" class="error-message">
+                  City should not start with a numeric character or contain special characters.
+                </div>
+              </div>
+              
+            </div>
+            <div class="form-row">
+              <div class="form-group position" >
+                <button [disabled]="profileForm.invalid" type="submit">Update</button>
+                <button mat-dialog-close  style="background-color: red;">Close</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
